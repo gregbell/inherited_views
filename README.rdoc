@@ -1,6 +1,15 @@
-= inherited_views
+= Inherited Views
 
-Description goes here.
+Inherited Views is a thin addition to the Inherited Resources project adding default html views which can be later customized on a per controller basis or globally for your rails app.
+
+== Required Dependencies
+
+* InheritedResources
+
+== Optional Dependencies
+
+* WillPaginate
+
 
 == Note on Patches/Pull Requests
  
@@ -14,4 +23,7 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Greg Bell. See LICENSE for details.
+Copyright (c) 2010:
+Greg Bell (www.gregbell.ca), VersaPay Corporation (www.versapay.com)
+
+See LICENSE for details.
