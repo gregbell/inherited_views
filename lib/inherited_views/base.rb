@@ -19,7 +19,7 @@ module InheritedViews
     #     self.default_views = "my_default_admin_views"
     #   end
     # 
-    # which would then use app/views/my_default_admin_views/*
+    # which would then use app/views/my_default_admin_views
     # 
     class_inheritable_accessor :default_views
     self.default_views = 'inherited_views_default'

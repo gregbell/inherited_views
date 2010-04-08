@@ -1,0 +1,14 @@
+<table id="<%= resource_class.name.underscore.pluralize %>_index_table" class="index_table">
+  <tr>
+    <% resource_class.content_columns.each do |column| %>
+      <th><%= column.name.titlecase %></th>
+    <% end %>
+  </tr>
+  <% collection.each do |resource| %>
+    <tr class="<%= cycle 'odd', 'even' %>">
+      <% resource_class.content_columns.each do |column| %>
+        <td><%= resource.send(column.name.to_sym) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
