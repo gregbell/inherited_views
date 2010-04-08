@@ -1,14 +1,23 @@
 = Inherited Views
 
+NOTE: THIS IS UNDER HEAVY DEV AND IS NOT READY TO BE USED YET
+
 Inherited Views is a thin addition to the Inherited Resources project adding default html views which can be later customized on a per controller basis or globally for your rails app.
 
-== Required Dependencies
+== Dependencies
 
 * InheritedResources
-
-== Optional Dependencies
-
+* Formtastic
 * WillPaginate
+
+== The Views
+
+Inherited Views gives you a default set of templates which you can override in your implementation, or modify to create application specific defaults.
+
+The following templates exist:
+
+  index.html.erb      Renders a paginate listing of the collection
+    _table.html.erb   Does the actual work of generating the table
 
 
 == Note on Patches/Pull Requests
