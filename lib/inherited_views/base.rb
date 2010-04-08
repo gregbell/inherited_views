@@ -39,7 +39,12 @@ module InheritedViews
       end
     end
     
+    protected
     
+    def index_table_columns
+      resource_class.content_columns.collect{|column| column.name.to_sym  }
+    end
+    helper_method :index_table_columns
     
     private
 
