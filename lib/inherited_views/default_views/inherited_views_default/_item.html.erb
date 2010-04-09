@@ -1,0 +1,5 @@
+<tr class="<%= cycle 'odd', 'even' %>">
+  <% index_table_columns.each do |column| %>
+    <td><%= item.send(column.to_sym) %></td>
+  <% end %>
+</tr>

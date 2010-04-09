@@ -4,11 +4,5 @@
       <th><%= column.to_s.titlecase %></th>
     <% end %>
   </tr>
-  <% collection.each do |resource| %>
-    <tr class="<%= cycle 'odd', 'even' %>">
-      <% index_table_columns.each do |column| %>
-        <td><%= resource.send(column.to_sym) %></td>
-      <% end %>
-    </tr>
-  <% end %>
+  <%= render_partial_or_default 'item', :collection => collection %>
 </table>

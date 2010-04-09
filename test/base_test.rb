@@ -1,4 +1,6 @@
 require File.dirname(__FILE__) + '/test_helper'
+require 'action_view/test_case'
+
 
 class User
   def self.human_name; 'User'; end
@@ -9,22 +11,12 @@ class UsersController < InheritedViews::Base; end
 UsersController.helper(InheritedViews::Helpers)
 
 module UserTestHelper
-  def setup
-    @controller          = UsersController.new
-    @controller.request  = @request  = ActionController::TestRequest.new
-    @controller.response = @response = ActionController::TestResponse.new
-    @controller.stubs(:user_url).returns("/")
-  end
-
-  protected
   
-  def mock_user(expectations={})
-    @mock_user ||= begin
+  def create_mock_user(expectations={})
       user = mock(expectations.except(:errors))
       user.stubs(:class).returns(User)
       user.stubs(:errors).returns(expectations.fetch(:errors, {})) 
       user
-    end
   end
 end
 
@@ -32,14 +24,19 @@ class IndexActionBaseTest < ActionController::TestCase
   
   include UserTestHelper
   
+  tests UsersController
+  
   def setup
     super
-    User.expects(:find).with(:all).returns([mock_user])
+    mock_user_1 = create_mock_user
+    mock_user_2 = create_mock_user
+    User.expects(:find).with(:all).returns([mock_user_1, mock_user_2])
     @columns = [  stub(:name => "username"),
                   stub(:name => "first_name"),
                   stub(:name => "last_name") ]
     User.stubs(:content_columns).returns(@columns)
-    mock_user.stubs(:username => "john.doe", :first_name => "John", :last_name => "Doe")
+    mock_user_1.stubs(:username => "john.doe", :first_name => "John", :last_name => "Doe")
+    mock_user_2.stubs(:username => "jane.doe", :first_name => "Jane", :last_name => "Doe")
     get :index
     # puts @controller.response.body
   end
@@ -62,11 +59,22 @@ class IndexActionBaseTest < ActionController::TestCase
   test "should render each resource" do
     assert_select "td", "john.doe"
     assert_select "td", "John"
+    assert_select "td", "jane.doe"
+    assert_select "td", "Jane"
     assert_select "td", "Doe"
   end
   
   test "should mark rows as odd and even" do
     assert_select "tr.odd"
+    assert_select "tr.even"
   end
-    
+  
+  test "should render using the table partial" do
+    assert_template :partial => "_table", :count => 1
+  end
+  
+  test "should render the item partial for each resource in the table" do
+    assert_template :partial => "_item", :count => 2
+  end
+  
 end
