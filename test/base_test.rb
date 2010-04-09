@@ -95,14 +95,8 @@ class NewActionBaseTest < ActionController::TestCase
   tests UsersController
   
   def setup
-    super    
-
-    @columns = [  stub(:name => "username"),
-                  stub(:name => "first_name"),
-                  stub(:name => "last_name") ]
-    User.stubs(:content_columns).returns(@columns)
+    super
     get :new
-    # puts @controller.response.body
   end
   
   test "should have a heading" do
