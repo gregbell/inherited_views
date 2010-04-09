@@ -1,14 +1,18 @@
 require File.dirname(__FILE__) + '/test_helper'
 require 'action_view/test_case'
 
-
+# Create a fake model for us to use
 class User
   def self.human_name; 'User'; end
 end
 
 
+# Create a controller for us to use
 class UsersController < InheritedViews::Base; end
-UsersController.helper(InheritedViews::Helpers)
+UsersController.helper(InheritedViews::Helpers)    
+ActionController::Routing::Routes.draw do |map|
+  map.resources :users
+end
 
 module UserTestHelper
   
@@ -27,7 +31,7 @@ class IndexActionBaseTest < ActionController::TestCase
   tests UsersController
   
   def setup
-    super
+    super    
     mock_user_1 = create_mock_user
     mock_user_2 = create_mock_user
     User.expects(:find).with(:all).returns([mock_user_1, mock_user_2])
@@ -75,6 +79,14 @@ class IndexActionBaseTest < ActionController::TestCase
   
   test "should render the item partial for each resource in the table" do
     assert_template :partial => "_item", :count => 2
+  end
+  
+  test "should generate edit links" do
+    assert_select "a", "Edit", :count => 2
+  end
+  
+  test "should generate delete links" do
+    assert_select "a", "Delete", :count => 2
   end
   
 end
