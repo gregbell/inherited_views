@@ -116,3 +116,27 @@ class NewActionBaseTest < ActionController::TestCase
   end
   
 end
+
+class EditActionBaseTest < ActionController::TestCase
+  
+  include UserTestHelper
+  
+  tests UsersController
+  
+  def setup
+    super
+    User.stubs(:reflections).returns({})
+    mock_user = create_mock_user
+    mock_user.stubs(:username => "john.doe", :first_name => "John", :last_name => "Doe", :new_record? => false, :id => 3)
+    User.stubs(:find).with('1').returns(mock_user)
+    get :edit, :id => '1'
+  end
+  
+  test "should have a heading" do
+    assert_select "h2", "Edit User"
+  end
+  
+  test "should render the form partial" do
+    assert_template :partial => "_form"
+  end
+end

@@ -45,6 +45,12 @@ module InheritedViews
       end
     end
     
+    def edit
+      super do |format|
+        format.html { render_or_default 'edit' }
+      end
+    end
+    
     protected
     
     def index_table_columns
