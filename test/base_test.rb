@@ -77,10 +77,6 @@ class IndexActionBaseTest < ActionController::TestCase
     assert_template :partial => "_table", :count => 1
   end
   
-  test "should render the item partial for each resource in the table" do
-    assert_template :partial => "_item", :count => 2
-  end
-  
   test "should generate edit links" do
     assert_select "a", "Edit", :count => 2
   end

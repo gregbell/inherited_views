@@ -1,9 +1,0 @@
-<tr class="<%= cycle 'odd', 'even' %>">
-  <% index_table_columns.each do |column| %>
-    <td><%= item.send(column.to_sym) %></td>
-  <% end %>
-  <td>
-    <%= link_to "Edit", edit_resource_path(item) %> | 
-    <%= link_to "Delete", resource_path(item), :method => :delete, :confirm => "Are you sure you want to delete this?" %>
-  </td>
-</tr>
