@@ -18,6 +18,10 @@ The following templates exist:
 
   index.html.erb      Renders a paginate listing of the collection
     _table.html.erb   Does the actual work of generating the table
+  show.html.erb       Shows the resource
+  new.html.erb        Renders the _form template for a new resource
+  edit.html.erb       Renders the _form template for a resource to edit
+  _form.html.erb      HTML for the actual form
 
 
 == Note on Patches/Pull Requests

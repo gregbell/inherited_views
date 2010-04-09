@@ -39,12 +39,30 @@ module InheritedViews
       end
     end
     
+    def new
+      super do |format|
+        format.html { render_or_default 'new' }
+      end
+    end
+    
     protected
     
     def index_table_columns
       resource_class.content_columns.collect{|column| column.name.to_sym  }
     end
     helper_method :index_table_columns
+    
+    
+    
+    def resource_name
+      resource_class.human_name
+    end
+    helper_method :resource_name
+    
+    def resources_name
+      resource_name.pluralize
+    end
+    helper_method :resources_name
     
     private
 

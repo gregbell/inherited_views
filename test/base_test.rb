@@ -4,6 +4,7 @@ require 'action_view/test_case'
 # Create a fake model for us to use
 class User
   def self.human_name; 'User'; end
+  def initialize(attrs = {}); end
 end
 
 
@@ -83,6 +84,29 @@ class IndexActionBaseTest < ActionController::TestCase
   
   test "should generate delete links" do
     assert_select "a", "Delete", :count => 2
+  end
+  
+end
+
+class NewActionBaseTest < ActionController::TestCase
+  
+  include UserTestHelper
+  
+  tests UsersController
+  
+  def setup
+    super    
+
+    @columns = [  stub(:name => "username"),
+                  stub(:name => "first_name"),
+                  stub(:name => "last_name") ]
+    User.stubs(:content_columns).returns(@columns)
+    get :new
+    # puts @controller.response.body
+  end
+  
+  test "should have a heading" do
+    assert_select "h2", "Create User"
   end
   
 end
