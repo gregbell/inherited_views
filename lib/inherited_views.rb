@@ -8,8 +8,5 @@ module InheritedViews
 end
 
 
-# Add our helpers to ActionController's list
-# ActionController::Base.helper(InheritedViews::Helpers)
-
 ActionView::Base.send :include, InheritedViews::Helpers
 ActionView::Base.send :include, Formtastic::SemanticFormHelper

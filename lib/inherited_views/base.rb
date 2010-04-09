@@ -51,6 +51,8 @@ module InheritedViews
       end
     end
     
+    
+    
     protected
     
     def index_table_columns
