@@ -32,7 +32,6 @@ The following templates exist:
 
 == Copyright
 
-Copyright (c) 2010:
-Greg Bell (www.gregbell.ca), VersaPay Corporation (www.versapay.com)
+Copyright (c) 2010 Greg Bell (www.gregbell.ca)
 
 See LICENSE for details.
