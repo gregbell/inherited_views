@@ -4,13 +4,16 @@ require 'action_view/test_case'
 # Create a fake model for us to use
 class User
   def self.human_name; 'User'; end
+  def id; end
   def initialize(attrs = {}); end
+  def new_record?
+    true
+  end
 end
 
 
 # Create a controller for us to use
 class UsersController < InheritedViews::Base; end
-UsersController.helper(InheritedViews::Helpers)    
 ActionController::Routing::Routes.draw do |map|
   map.resources :users
 end
@@ -96,11 +99,16 @@ class NewActionBaseTest < ActionController::TestCase
   
   def setup
     super
+    User.stubs(:reflections).returns({})
     get :new
   end
   
   test "should have a heading" do
     assert_select "h2", "Create User"
+  end
+  
+  test "should create a form for the user" do
+    assert_select "form"
   end
   
 end
