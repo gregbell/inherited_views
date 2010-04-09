@@ -111,4 +111,8 @@ class NewActionBaseTest < ActionController::TestCase
     assert_select "form"
   end
   
+  test "should render using the form partial" do
+    assert_template :partial => '_form'
+  end
+  
 end

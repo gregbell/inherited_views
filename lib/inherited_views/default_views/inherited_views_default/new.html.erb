@@ -1,5 +1,2 @@
 <h2>Create <%= resource_name %></h2>
-<% semantic_form_for resource do |f| %>
-  <%= f.inputs %>
-  <%= f.buttons %>
-<% end %>
+<%= render_partial_or_default 'form' %>
