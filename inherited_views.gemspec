@@ -6,7 +6,7 @@ require 'inherited_views/version'
 
 Gem::Specification.new do |s|
   s.name        = "inherited_views"
-  s.version     = InheritedViews::Version
+  s.version     = InheritedViews::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Greg Bell"]
   s.email       = ["gregdbell@gmail.com"]
