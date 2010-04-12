@@ -82,7 +82,7 @@ module InheritedViews
     def render_or_default(name, args = {})
       render name, args
     rescue ActionView::MissingTemplate
-      render "#{self.class.default_views}/#{name}", args
+      render args.merge(:template => "#{self.class.default_views}/#{name}", :prefix => '')
     end
     
   end
