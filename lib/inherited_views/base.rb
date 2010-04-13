@@ -45,6 +45,12 @@ module InheritedViews
       end
     end
     
+    def show
+      super do |format|
+        format.html { render_or_default 'show' }
+      end
+    end
+    
     def edit
       super do |format|
         format.html { render_or_default 'edit' }
@@ -65,6 +71,10 @@ module InheritedViews
     end
     helper_method :index_table_columns
     
+    def show_view_columns
+      resource_class.columns.collect{|column| column.name.to_sym  }
+    end
+    helper_method :show_view_columns
     
     def resource_name
       resource_class.human_name

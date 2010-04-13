@@ -147,3 +147,34 @@ class EditActionBaseTest < ActionController::TestCase
     assert_template :partial => "_form"
   end
 end
+
+class ShowActionBaseTest < ActionController::TestCase
+  
+  include UserTestHelper
+  
+  tests UsersController
+  
+  def setup
+    super
+    mock_user = create_mock_user
+    @columns = [  stub(:name => "id"),
+                  stub(:name => "username"),
+                  stub(:name => "first_name"),
+                  stub(:name => "last_name") ]
+    User.stubs(:columns).returns(@columns) 
+    mock_user.stubs(:username => "john.doe", :first_name => "John", :last_name => "Doe", :id => 3)
+    User.stubs(:find).with('1').returns(mock_user)
+    get :show, :id => '1'
+  end
+  
+  test "should have a heading" do
+    assert_select "h2", "User #3"
+  end
+  
+  test "should show each attribute in a dl" do
+    assert_select 'dl.resource_attributes'
+    assert_select 'dt', 'First Name'
+    assert_select 'dd', 'John'
+  end
+  
+end
