@@ -178,3 +178,26 @@ class ShowActionBaseTest < ActionController::TestCase
   end
   
 end
+
+class CreateFailerActionBaseTest < ActionController::TestCase
+  
+  include UserTestHelper
+  
+  tests UsersController
+  
+  def setup
+    super
+    @user = create_mock_user
+    @user.stubs(:new_record? => true, :id => nil)
+    @user.expects(:save).returns(false)
+    @user.expects(:errors).returns(["One Error"])
+    User.stubs(:new).with({}).returns(@user)
+    User.stubs(:reflections).returns({})
+    post :create, :user => {}
+  end
+  
+  test "should re-render the new template on failure" do
+    assert_template 'new'
+  end
+  
+end

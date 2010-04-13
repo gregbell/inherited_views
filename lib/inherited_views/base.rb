@@ -45,6 +45,12 @@ module InheritedViews
       end
     end
     
+    def create
+      create! do |success, failure|
+        failure.html { render_or_default 'new' }
+      end
+    end
+    
     def show
       super do |format|
         format.html { render_or_default 'show' }
