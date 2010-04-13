@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'inherited_resources', '>= 1.0.6'
   s.add_dependency 'formtastic', '>= 0.9.8'
-  s.add_dependency 'will-paginate', '>= 2.3.12'
+  s.add_dependency 'will_paginate', '>= 2.3.12'
   
   s.add_development_dependency 'activesupport', '= 2.3.5'
   s.add_development_dependency 'actionpack', '= 2.3.5'
