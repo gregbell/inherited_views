@@ -55,11 +55,15 @@ module InheritedViews
     
     protected
     
+    # Overriding so that we have pagination by default
+    def collection
+      get_collection_ivar || set_collection_ivar(end_of_association_chain.paginate(:page => params[:page]))
+    end
+    
     def index_table_columns
       resource_class.content_columns.collect{|column| column.name.to_sym  }
     end
     helper_method :index_table_columns
-    
     
     
     def resource_name

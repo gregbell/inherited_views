@@ -38,7 +38,9 @@ class IndexActionBaseTest < ActionController::TestCase
     super    
     mock_user_1 = create_mock_user
     mock_user_2 = create_mock_user
-    User.expects(:find).with(:all).returns([mock_user_1, mock_user_2])
+    @users = [mock_user_1, mock_user_2]
+    @users.stubs(:total_pages => 2, :current_page => 1, :previous_page => nil, :next_page => 2)
+    User.expects(:paginate).with(:page => nil).returns(@users)
     @columns = [  stub(:name => "username"),
                   stub(:name => "first_name"),
                   stub(:name => "last_name") ]
@@ -87,6 +89,11 @@ class IndexActionBaseTest < ActionController::TestCase
   
   test "should generate delete links" do
     assert_select "a", "Delete", :count => 2
+  end
+  
+  test "should paginate the results" do
+    assert_select "div.pagination"
+    assert_select "a[href=/users?page=2]", '2'
   end
   
 end

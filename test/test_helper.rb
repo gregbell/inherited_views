@@ -17,6 +17,9 @@ class ApplicationController < ActionController::Base; end
 
 require 'inherited_views'
 
+# Manually setup will paginate for tests
+WillPaginate.enable_actionpack
+
 ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
 end

@@ -1,4 +1,5 @@
 require 'formtastic'
+require 'will_paginate'
 
 module InheritedViews
   
