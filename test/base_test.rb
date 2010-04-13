@@ -201,3 +201,25 @@ class CreateFailerActionBaseTest < ActionController::TestCase
   end
   
 end
+
+class UpdateFailerActionBaseTest < ActionController::TestCase
+  
+  include UserTestHelper
+  
+  tests UsersController
+  
+  def setup
+    super
+    @user = create_mock_user
+    @user.stubs(:new_record? => true, :id => nil)
+    @user.expects(:errors).returns(["One Error"])
+    User.expects(:find).with('1').returns(@user)
+    User.stubs(:reflections).returns({})
+    put :edit, :id => '1', :user => {}
+  end
+  
+  test "should re-render the edit template on failure" do
+    assert_template 'edit'
+  end
+  
+end

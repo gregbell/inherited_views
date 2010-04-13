@@ -63,6 +63,11 @@ module InheritedViews
       end
     end
     
+    def update
+      update! do |success, failure|
+        failure.html { render_or_default 'edit' }
+      end
+    end
     
     
     protected
