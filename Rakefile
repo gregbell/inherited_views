@@ -9,7 +9,7 @@ end
  
 desc "Creates a new release of the gem"
 task :release => :build do
-  system "gem push inherited_views-#{InheritedViews::VERSION}"
+  system "gem push inherited_views-#{InheritedViews::VERSION}.gem"
 end
 
 Rake::TestTask.new :test do |t|
