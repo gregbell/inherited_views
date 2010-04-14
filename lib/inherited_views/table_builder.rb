@@ -22,6 +22,29 @@ module InheritedViews
         resource_class.content_columns.collect{|column| column.name.to_sym  }
       end
       
+      
+      # Sets the columns to be displayed when the index table is rendered
+      # for this resource.
+      # 
+      # Simple usage:
+      # 
+      # Pass in a list of the methods to call on your resource in the order
+      # you wish to see them in the table
+      # 
+      # class UsersController < InheritedViews::Base
+      #   table :first_name, :last_name
+      # end
+      # 
+      # 
+      # Except:
+      # 
+      # You can also use the default content columns from your ActiveRecord
+      # object and only exclude certain columns.
+      # 
+      # class UsersController < InheritedViews::Base
+      #   table :except => :first_name
+      # end
+      # 
       def table(*columns)
         options = columns.extract_options!        
         
