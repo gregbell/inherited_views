@@ -1,30 +1,10 @@
 require File.dirname(__FILE__) + '/test_helper'
 require 'action_view/test_case'
 
-# Create a fake model for us to use
-class User
-  def self.human_name; 'User'; end
-  def id; end
-  def initialize(attrs = {}); end
-  def new_record?
-    true
-  end
-end
-
-
-# Create a controller for us to use
-class UsersController < InheritedViews::Base; end
-ActionController::Routing::Routes.draw do |map|
-  map.resources :users
-end
-
 module UserTestHelper
   
   def create_mock_user(expectations={})
-      user = mock(expectations.except(:errors))
-      user.stubs(:class).returns(User)
-      user.stubs(:errors).returns(expectations.fetch(:errors, {})) 
-      user
+    User.new
   end
 end
 
@@ -36,6 +16,7 @@ class IndexActionBaseTest < ActionController::TestCase
   
   def setup
     super    
+    UsersController.table_config = {} # Force to render default columns
     mock_user_1 = create_mock_user
     mock_user_2 = create_mock_user
     @users = [mock_user_1, mock_user_2]
@@ -190,7 +171,7 @@ class CreateFailerActionBaseTest < ActionController::TestCase
     @user = create_mock_user
     @user.stubs(:new_record? => true, :id => nil)
     @user.expects(:save).returns(false)
-    @user.expects(:errors).returns(["One Error"])
+    @user.expects(:errors).at_least_once.returns({:first_name => "Not goo"})
     User.stubs(:new).with({}).returns(@user)
     User.stubs(:reflections).returns({})
     post :create, :user => {}
@@ -212,7 +193,7 @@ class UpdateFailerActionBaseTest < ActionController::TestCase
     super
     @user = create_mock_user
     @user.stubs(:new_record? => true, :id => nil)
-    @user.expects(:errors).returns(["One Error"])
+    @user.expects(:errors).at_least_once.returns({:first_name => "Not goo"})
     User.expects(:find).with('1').returns(@user)
     User.stubs(:reflections).returns({})
     put :edit, :id => '1', :user => {}
