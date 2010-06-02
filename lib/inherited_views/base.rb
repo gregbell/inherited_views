@@ -1,7 +1,7 @@
 require 'inherited_resources'
 
 module InheritedViews
-  class Base < InheritedResources::Base
+  class Base < ::InheritedResources::Base
     
     
     # Set the name of the folder of the default views to use
